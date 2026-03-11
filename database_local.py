@@ -6,17 +6,17 @@ from sqlalchemy.orm import sessionmaker
 from datetime import datetime
 from dotenv import load_dotenv
 
-import streamlit as st
+load_dotenv()
 
-# خواندن اطلاعات از Secrets استریم‌لیت (که در مرحله بعد تنظیم می‌کنیم)
-db_info = st.secrets["postgres"]
+# در فایل database.py
+DB_HOST = os.getenv('DB_HOST', 'localhost') # اگر در داکر نباشد، پیش‌فرض لکال‌هوست
+DB_USER = os.getenv('DB_USER')
+DB_PASS = os.getenv('DB_PASSWORD')
+DB_NAME = os.getenv('DB_NAME')
 
-DATABASE_URL = (
-    f"postgresql://{db_info['username']}:{db_info['password']}"
-    f"@{db_info['host']}:{db_info['port']}/{db_info['database']}?sslmode=require"
-)
-
-engine = create_engine(DATABASE_URL)
+# ساخت کانکشن استرینگ با استفاده از نام سرویس (db)
+DB_URL = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:5432/{DB_NAME}"
+engine = create_engine(DB_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
