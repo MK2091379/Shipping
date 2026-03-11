@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:15
+    container_name: shipping_db # logistics_db_container
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    container_name: shipping_web
+    ports:
+      - "8501:8501"
+    environment:
+      - DB_HOST=db  # نام سرویس دیتابیس
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

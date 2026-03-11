@@ -1,0 +1,44 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env
+
+# --- Streamlit ---
+.streamlit/secrets.toml
+.streamlit/config.toml
+
+# --- Confidential Data ---
+data/*.xlsx
+data/*.csv
+*.xlsx
+*.csv
+*.db
+*.sqlite
+*.docx
+
+# --- Environment Secrets ---
+.env
+.flaskenv
+.secrets
+secrets/
+
+# --- Docker ---
+.docker/
+*.log
+
+# --- IDEs & OS ---
+.vscode/
+.idea/
+*.swp
+*.bak
+Thumbs.db
+.DS_Store
+
+# --- Distribution / Build ---
+dist/
+build/
+*.egg-info/
