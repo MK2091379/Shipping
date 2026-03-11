@@ -7,19 +7,26 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
+    # پورت باید اینجا باشد تا ویندوز بتواند به دیتابیسِ داخل داکر وصل شود
+    ports:
+      - "5432:5432" 
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   web:
     build: .
     container_name: shipping_web
+    # پورت اپلیکیشن استریم‌لیت 8501 است
     ports:
-      - "8501:8501"
+      - "8501:8501" 
     environment:
-      - DB_HOST=db  # نام سرویس دیتابیس
+      - DB_HOST=db  # نام سرویس دیتابیس (فقط وقتی کل سیستم در داکر است کار می‌کند)
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_NAME=${DB_NAME}
+    # برای آپدیت آنی کدها
+    volumes:
+      - .:/app
     depends_on:
       - db
 
